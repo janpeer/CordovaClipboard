@@ -56,4 +56,10 @@
         <source-file src="src/wp8/Clipboard.cs" />
     </platform>
 
+	<!-- windows universal apps (Windows 8.1, Windows Phone 8.1, Windows 8.0) -->
+    <platform name="windows">
+        <js-module src="src/windows/clipboardProxy.js" name="ClipboardProxy">
+            <merges target="" />
+        </js-module>
+    </platform>
 </plugin>
