@@ -1,34 +1,13 @@
-var cordova = require('cordova');
+var cordova = require('cordova'),
+    channel = require('cordova/channel');
 
-/**
- * Clipboard plugin for Cordova
- * 
- * @constructor
- */
-function Clipboard () {}
-
-/**
- * Sets the clipboard content
- *
- * @param {String}   text      The content to copy to the clipboard
- * @param {Function} onSuccess The function to call in case of success (takes the copied text as argument)
- * @param {Function} onFail    The function to call in case of error
- */
-Clipboard.prototype.copy = function (text, onSuccess, onFail) {
-    if (typeof text === "undefined" || text === null) text = "";
-	cordova.exec(onSuccess, onFail, "Clipboard", "copy", [text]);
-};
-
-/**
- * Gets the clipboard content
- *
- * @param {Function} onSuccess The function to call in case of success
- * @param {Function} onFail    The function to call in case of error
- */
-Clipboard.prototype.paste = function (onSuccess, onFail) {
-	cordova.exec(onSuccess, onFail, "Clipboard", "paste", []);
-};
-
-// Register the plugin
-var clipboard = new Clipboard();
-module.exports = clipboard;
+module.exports = {
+    copy: function (success, fail, args) {
+        console.log("COPY");
+        Windows.ApplicationModel.DataTransfer.Clipboard.setContent(args[0]);
+    },
+    paste: function (success, fail, args) {
+        console.log("PASTE");
+    }
+}
+require("cordova/exec/proxy").add("Clipboard", module.exports);
